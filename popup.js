@@ -8,6 +8,18 @@ function extractLinkedInData() {
 
   return { name, headline, jobTitle, email, viewedBy: viewers };
 }
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "sendProfileData") {
+    const data = message.payload;
+
+    document.getElementById("name").textContent = data.name;
+    document.getElementById("headline").textContent = data.headline;
+    document.getElementById("jobTitle").textContent = data.jobTitle;
+    document.getElementById("email").textContent = data.email;
+    document.getElementById("viewedBy").textContent = data.viewedBy;
+  }
+});
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const tabButtons = document.querySelectorAll('.tab-btn');
