@@ -13,6 +13,8 @@ function extractLinkedInData() {
     action: "sendProfileData",
     payload: { name, headline, jobTitle, email, viewedBy }
   });
+  console.log("Scraping LinkedIn profile...");
+
 }
 
 extractLinkedInData();

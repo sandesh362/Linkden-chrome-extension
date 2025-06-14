@@ -17,6 +17,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     document.getElementById("jobTitle").textContent = data.jobTitle;
     document.getElementById("email").textContent = data.email;
     document.getElementById("viewedBy").textContent = data.viewedBy;
+    console.log("Received data from content script:", message.payload);
+
   }
 });
 
