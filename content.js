@@ -1,20 +1,24 @@
-// content.js – runs in the context of the LinkedIn page
+console.log("✅ content.js is working");
 
-function extractLinkedInData() {
-  let name = document.querySelector('h1')?.innerText || "N/A";
-  let headline = document.querySelector('.text-body-medium.break-words')?.innerText || "N/A";
-  let jobTitle = document.querySelector('.pv-entity__summary-info h3')?.innerText || "N/A";
-  let email = document.querySelector("a[href^='mailto:']")?.innerText || "N/A";
+// Wait for LinkedIn profile DOM to be fully ready
+window.addEventListener("load", () => {
+    const name = document.querySelector('.text-heading-xlarge')?.innerText || "N/A";
+    const headline = document.querySelector('.text-body-medium.break-words')?.innerText || "N/A";
+    const jobTitle = document.querySelector('.pv-text-details__right-panel h3')?.innerText || "N/A";
+    const email = "N/A"; // LinkedIn doesn't expose email in public profile
+    const viewer = document.querySelector('.pv-profile-section__card-heading')?.innerText || "N/A";
 
-  // "Viewed By" is not accessible without Premium, so placeholder for now
-  let viewedBy = "N/A";
+    // Send message to popup.js
+    chrome.runtime.sendMessage({
+        action: "profileData",
+        data: {
+            name,
+            headline,
+            jobTitle,
+            email,
+            viewedBy: viewer
+        }
+    });
 
-  chrome.runtime.sendMessage({
-    action: "sendProfileData",
-    payload: { name, headline, jobTitle, email, viewedBy }
-  });
-  console.log("Scraping LinkedIn profile...");
-
-}
-
-extractLinkedInData();
+    console.log("✅ Data sent to popup");
+});

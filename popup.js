@@ -8,19 +8,30 @@ function extractLinkedInData() {
 
   return { name, headline, jobTitle, email, viewedBy: viewers };
 }
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//   if (message.action === "sendProfileData") {
+//     const data = message.payload;
+
+//     document.getElementById("name").textContent = data.name;
+//     document.getElementById("headline").textContent = data.headline;
+//     document.getElementById("jobTitle").textContent = data.jobTitle;
+//     document.getElementById("email").textContent = data.email;
+//     document.getElementById("viewedBy").textContent = data.viewedBy;
+//     console.log("Received data from content script:", message.payload);
+
+//   }
+// });
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "sendProfileData") {
-    const data = message.payload;
-
-    document.getElementById("name").textContent = data.name;
-    document.getElementById("headline").textContent = data.headline;
-    document.getElementById("jobTitle").textContent = data.jobTitle;
-    document.getElementById("email").textContent = data.email;
-    document.getElementById("viewedBy").textContent = data.viewedBy;
-    console.log("Received data from content script:", message.payload);
-
-  }
+    if (message.action === "profileData") {
+        document.getElementById("name").textContent = message.data.name;
+        document.getElementById("headline").textContent = message.data.headline;
+        document.getElementById("jobTitle").textContent = message.data.jobTitle;
+        document.getElementById("email").textContent = message.data.email;
+        document.getElementById("viewedBy").textContent = message.data.viewedBy;
+    }
 });
+
 
 
 document.addEventListener("DOMContentLoaded", () => {

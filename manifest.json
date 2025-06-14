@@ -3,7 +3,7 @@
   "name": "LinkedIn Productivity Enhancer",
   "version": "1.0",
   "description": "Auto-save contacts, send connection messages, analyze activity, and track jobs on LinkedIn.",
-  "permissions": ["activeTab", "scripting", "storage"],
+  "permissions": ["activeTab", "scripting", "storage", "tabs"],
   "host_permissions": ["https://www.linkedin.com/*"],
   "background": {
     "service_worker": "background.js"
@@ -16,11 +16,10 @@
       "128": "icons/icon128.png"
     }
   },
- "content_scripts": [
-  {
-    "matches": ["*://www.linkedin.com/in/*"],
-    "js": ["content.js"]
-  }
-]
-
+  "content_scripts": [
+    {
+      "matches": ["*://www.linkedin.com/in/*"],
+      "js": ["content.js"]
+    }
+  ]
 }
